@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baroness Gardens – Your Dream Outdoor Event Venue</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1e4d38; --forest-dark: #133025; --forest-light: #2a6349;
+    --gold: #c9913a; --gold-light: #e0b06a;
+    --mint-bg: #eef5f1; --off-white: #fafaf8;
+    --text-dark: #1a1a1a; --text-mid: #4a4a4a;
+    --white: #ffffff;
+    --card-shadow: 0 4px 24px rgba(30,77,56,0.10);
+    --radius: 16px; --radius-sm: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(30,77,56,0.08); transition: box-shadow .3s; }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(30,77,56,0.12); }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon { width: 44px; height: 44px; background: var(--forest); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .logo-text .brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--forest); letter-spacing: .04em; }
+  .logo-text .sub { font-size: 10px; font-weight: 500; letter-spacing: .18em; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--text-mid); transition: color .2s; }
+  .nav-links a:hover { color: var(--forest); }
+  .nav-cta { background: var(--forest); color: var(--white); padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: background .2s, transform .15s; }
+  .nav-cta:hover { background: var(--forest-light); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--forest); border-radius: 2px; }
+
+  /* HERO */
+  #home { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding-top: 72px; }
+  .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(19,48,37,0.75) 0%, rgba(30,77,56,0.48) 50%, rgba(201,145,58,0.15) 100%), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1800&q=80') center/cover no-repeat; }
+  .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(19,48,37,0.6) 40%, transparent 100%); }
+  .hero-content { position: relative; z-index: 2; max-width: 660px; padding: 0 5%; animation: fadeUp .9s ease both; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+  .hero-badge .stars { color: var(--gold-light); }
+  .hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 7vw, 80px); font-weight: 700; line-height: 1.05; color: var(--white); margin-bottom: 20px; }
+  .hero-content h1 span { color: var(--gold-light); font-style: italic; }
+  .hero-content p { font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 36px; max-width: 520px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+  .hero-pills { display: flex; gap: 24px; flex-wrap: wrap; }
+  .pill { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; }
+  .hero-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; animation: bounce 2s infinite; color: rgba(255,255,255,0.6); font-size: 22px; cursor: pointer; }
+
+  /* BUTTONS */
+  .btn-primary { background: var(--forest); color: #fff; padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .15s; }
+  .btn-primary:hover { background: var(--forest-light); transform: translateY(-2px); }
+  .btn-outline { background: rgba(255,255,255,0.12); color: #fff; border: 1.5px solid rgba(255,255,255,0.5); padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .15s; backdrop-filter: blur(6px); }
+  .btn-outline:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .btn-gold { background: var(--gold); color: #fff; padding: 15px 32px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .15s; }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost { background: rgba(255,255,255,0.12); color: #fff; border: 1.5px solid rgba(255,255,255,0.4); padding: 15px 32px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, transform .15s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+  /* SECTIONS */
+  section { padding: 96px 5%; }
+  .section-label { display: inline-block; background: var(--mint-bg); color: var(--forest); font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 18px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 4.5vw, 52px); font-weight: 700; line-height: 1.1; color: var(--text-dark); margin-bottom: 16px; }
+  .section-title span { color: var(--forest); }
+  .section-sub { font-size: 16px; color: var(--text-mid); line-height: 1.7; max-width: 580px; margin: 0 auto; }
+  .text-center { text-align: center; }
+
+  /* AMENITIES */
+  #amenities { background: var(--mint-bg); }
+  .amenities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 56px; }
+  .amenity-card { background: var(--white); border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--card-shadow); transition: transform .25s, box-shadow .25s; }
+  .amenity-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(30,77,56,0.15); }
+  .amenity-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--forest); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; }
+  .amenity-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .amenity-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+  /* VENUE */
+  #venue { background: var(--white); }
+  .venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .venue-images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; }
+  .venue-images img { width: 100%; border-radius: var(--radius); object-fit: cover; height: 220px; }
+  .venue-images img:first-child { height: 300px; grid-column: 1; grid-row: 1 / 3; }
+  .venue-stat { position: absolute; bottom: 12px; right: 12px; background: var(--forest); color: #fff; padding: 16px 22px; border-radius: var(--radius-sm); text-align: center; }
+  .venue-stat .num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; line-height: 1; }
+  .venue-stat .lbl { font-size: 12px; font-weight: 500; opacity: .8; margin-top: 4px; }
+  .venue-info { padding-left: 16px; }
+  .venue-info p { font-size: 15px; color: var(--text-mid); line-height: 1.75; margin-bottom: 24px; }
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+  .checklist li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; }
+  .check-icon { width: 22px; height: 22px; min-width: 22px; background: var(--mint-bg); color: var(--forest); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-top: 1px; }
+
+  /* EVENTS */
+  #events { background: var(--mint-bg); }
+  .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+  .event-card { border-radius: var(--radius); overflow: hidden; position: relative; cursor: pointer; box-shadow: var(--card-shadow); transition: transform .3s; text-decoration: none; display: block; }
+  .event-card:hover { transform: scale(1.02); }
+  .event-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
+  .event-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(19,48,37,0.88) 0%, transparent 55%); padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .event-badge { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 10px; }
+  .event-overlay h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .event-overlay p { font-size: 13px; color: rgba(255,255,255,0.82); line-height: 1.5; margin-bottom: 12px; }
+  .event-book-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: #fff; font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 6px; width: fit-content; transition: background .2s; }
+  .event-card:hover .event-book-btn { background: var(--gold-light); }
+
+  /* CONTACT */
+  #contact { position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(19,48,37,0.92) 0%, rgba(30,77,56,0.84) 100%), url('https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1600&q=80') center/cover no-repeat; text-align: center; }
+  #contact .section-label { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
+  #contact .section-title { color: #fff; }
+  #contact .section-title span { color: var(--gold-light); }
+  .intro-p { color: rgba(255,255,255,0.8); font-size: 16px; max-width: 520px; margin: 0 auto 44px; line-height: 1.7; }
+
+  /* contact cards */
+  .contact-cards { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+  .contact-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 20px 24px; text-align: center; min-width: 150px; text-decoration: none; transition: background .2s, transform .2s; }
+  .contact-card:hover { background: rgba(255,255,255,0.18); transform: translateY(-4px); }
+  .cc-icon { font-size: 28px; margin-bottom: 8px; }
+  .cc-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 5px; }
+  .cc-val { color: #fff; font-size: 13px; font-weight: 600; line-height: 1.5; }
+
+  /* booking form */
+  .booking-wrap { background: rgba(255,255,255,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 40px; max-width: 680px; margin: 0 auto; text-align: left; }
+  .booking-wrap h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .bsub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+  .form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: #fff; border-radius: 10px; padding: 12px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color .2s, background .2s; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold-light); background: rgba(255,255,255,0.15); }
+  .form-group select option { background: var(--forest-dark); color: #fff; }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit { width: 100%; padding: 16px; background: var(--gold); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background .2s, transform .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .form-note { font-size: 12px; color: rgba(255,255,255,0.45); text-align: center; margin-top: 14px; }
+  .or-div { display: flex; align-items: center; gap: 16px; margin: 28px 0; }
+  .or-div span { color: rgba(255,255,255,0.4); font-size: 13px; white-space: nowrap; }
+  .or-div::before, .or-div::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.15); }
+  .direct-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .direct-row a { flex: 1; min-width: 140px; justify-content: center; }
+  .form-success { display: none; text-align: center; padding: 32px 16px; }
+  .form-success .tick { font-size: 56px; margin-bottom: 16px; }
+  .form-success h4 { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: #fff; margin-bottom: 10px; }
+  .form-success p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 28px; line-height: 1.6; }
+
+  /* FOOTER */
+  footer { background: var(--forest-dark); color: rgba(255,255,255,0.7); padding: 40px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-logo .brand { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #fff; }
+  .footer-logo .sub { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); }
+
+  /* MOBILE */
+  .mobile-menu { display: none; position: fixed; inset: 0; top: 72px; background: #fff; z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 22px; font-family: 'Cormorant Garamond', serif; color: var(--forest); text-decoration: none; font-weight: 600; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .venue-grid { grid-template-columns: 1fr; }
+    .venue-info { padding-left: 0; }
+    .events-grid { grid-template-columns: 1fr; }
+    .amenities-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .booking-wrap { padding: 28px 18px; }
+  }
+  @media (max-width: 560px) {
+    .amenities-grid { grid-template-columns: 1fr; }
+    .contact-cards { flex-direction: column; align-items: center; }
+    .venue-images img:first-child { height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#home" class="logo">
+    <div class="logo-icon">🌿</div>
+    <div class="logo-text">
+      <div class="brand">Baroness Gardens</div>
+      <div class="sub">— Event Venue —</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#venue">The Venue</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">📅 Make a Reservation →</a>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#venue" onclick="closeMobile()">The Venue</a>
+  <a href="#events" onclick="closeMobile()">Events</a>
+  <a href="#amenities" onclick="closeMobile()">Amenities</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="#contact" class="btn-primary" onclick="closeMobile()">📅 Make a Reservation</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="stars">★★★★☆</span> 4.3 Rating · Trusted by 500+ Clients</div>
+    <h1>Your Dream Outdoor <span>Event Venue</span></h1>
+    <p>Host unforgettable weddings, corporate events, and celebrations in our stunning private garden space. Seating for 300+ guests with complete amenities.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">📅 Reserve Your Date</a>
+      <a href="#contact" class="btn-outline">📞 Call to Enquire</a>
+    </div>
+    <div class="hero-pills">
+      <div class="pill">👥 300+ Seating</div>
+      <div class="pill">♿ Fully Accessible</div>
+      <div class="pill">🛡 Private & Secure</div>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('amenities').scrollIntoView({behavior:'smooth'})">↓</div>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div class="text-center reveal">
+    <div class="section-label">Why Baroness Gardens</div>
+    <h2 class="section-title">Everything You Need for a <span>Perfect Event</span></h2>
+    <p class="section-sub">Our private outdoor venue offers complete amenities ensuring your guests have an exceptional experience in a serene, accessible environment.</p>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity-card reveal"><div class="amenity-icon">🍸</div><h3>Full-Service Bar</h3><p>Professionally stocked bar area perfect for cocktails and celebrations.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">🍽</div><h3>Catering Kitchen</h3><p>Fully equipped kitchen for catering services to serve your guests.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">🌸</div><h3>Stunning Flower Wall</h3><p>Beautiful floral backdrop perfect for photos and ceremonies.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">🚗</div><h3>Ample Parking</h3><p>Spacious car park with wheelchair-accessible spaces.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">🚪</div><h3>Changing Rooms</h3><p>Private changing facilities for bridal parties and performers.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">🚻</div><h3>Clean Washrooms</h3><p>Male and female washrooms with full accessibility features.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">♿</div><h3>Fully Accessible</h3><p>Wheelchair-accessible entrance, parking, and restrooms.</p></div>
+    <div class="amenity-card reveal"><div class="amenity-icon">🛡</div><h3>Private & Secure</h3><p>Your event is exclusive with guaranteed privacy and security.</p></div>
+  </div>
+  <div class="text-center reveal" style="margin-top:48px;">
+    <a href="#contact" class="btn-primary" style="font-size:16px;padding:16px 40px;">📅 Check Availability for Your Date</a>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section id="venue">
+  <div class="venue-grid">
+    <div class="venue-images reveal">
+      <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80" alt="Garden venue">
+      <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&q=80" alt="Evening event">
+      <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=400&q=80" alt="Dining setup">
+      <div class="venue-stat"><div class="num">300+</div><div class="lbl">Guest Capacity</div></div>
+    </div>
+    <div class="venue-info reveal">
+      <div class="section-label">The Venue</div>
+      <h2 class="section-title">A Serene Garden <span>Escape for Your Special Day</span></h2>
+      <p>Nestled in a tranquil location in East Legon Hills, Baroness Gardens offers the perfect blend of natural beauty and modern amenities. Our spacious outdoor venue is designed to create unforgettable moments for every event.</p>
+      <ul class="checklist">
+        <li><span class="check-icon">✓</span> Secluded location with complete privacy for your celebration</li>
+        <li><span class="check-icon">✓</span> Beautiful natural surroundings with mature gardens and landscaping</li>
+        <li><span class="check-icon">✓</span> Flexible layouts for ceremonies &amp; receptions</li>
+      </ul>
+      <a href="#contact" class="btn-primary">📅 Book This Venue →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="text-center reveal">
+    <div class="section-label">Events</div>
+    <h2 class="section-title">Perfect for <span>Every Occasion</span></h2>
+    <p class="section-sub">From intimate gatherings to grand celebrations, our versatile venue adapts to bring your vision to life.</p>
+  </div>
+  <div class="events-grid">
+    <a href="#contact" class="event-card reveal">
+      <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=600&q=80" alt="Wedding Ceremonies">
+      <div class="event-overlay"><div class="event-badge">💍</div><h3>Wedding Ceremonies</h3><p>Exchange vows in our romantic garden setting with stunning backdrops.</p><div class="event-book-btn">📅 Book Now</div></div>
+    </a>
+    <a href="#contact" class="event-card reveal">
+      <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="Wedding Receptions">
+      <div class="event-overlay"><div class="event-badge">🥂</div><h3>Wedding Receptions</h3><p>Celebrate your reception with 300+ guests under the stars.</p><div class="event-book-btn">📅 Book Now</div></div>
+    </a>
+    <a href="#contact" class="event-card reveal">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Corporate Events">
+      <div class="event-overlay"><div class="event-badge">💼</div><h3>Corporate Events</h3><p>Professional settings for conferences, launches, and team gatherings.</p><div class="event-book-btn">📅 Book Now</div></div>
+    </a>
+    <a href="#contact" class="event-card reveal">
+      <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Birthday Parties">
+      <div class="event-overlay"><div class="event-badge">🎂</div><h3>Birthday Parties</h3><p>Make your milestone birthday unforgettable with our garden setting.</p><div class="event-book-btn">📅 Book Now</div></div>
+    </a>
+    <a href="#contact" class="event-card reveal">
+      <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&q=80" alt="Social Gatherings">
+      <div class="event-overlay"><div class="event-badge">🎉</div><h3>Social Gatherings</h3><p>Elegant outdoor space for family reunions and social celebrations.</p><div class="event-book-btn">📅 Book Now</div></div>
+    </a>
+    <a href="#contact" class="event-card reveal">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Private Dinners">
+      <div class="event-overlay"><div class="event-badge">🕯</div><h3>Private Dinners</h3><p>Intimate dining experiences under the stars in our serene garden.</p><div class="event-book-btn">📅 Book Now</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT & BOOKING -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Make a Reservation</div>
+    <h2 class="section-title">Ready to Create Your <span>Unforgettable Event?</span></h2>
+    <p class="intro-p">Fill in your details and the Baroness Gardens team will reach out to confirm availability and pricing — no commitment needed.</p>
+
+    <div class="contact-cards">
+      <div class="contact-card" style="cursor:default;">
+        <div class="cc-icon">📞</div>
+        <div class="cc-label">Call or WhatsApp</div>
+        <div class="cc-val" style="font-size:16px;">059 264 6743</div>
+      </div>
+      <div class="contact-card" style="cursor:default;">
+        <div class="cc-icon">🌐</div>
+        <div class="cc-label">Website</div>
+        <div class="cc-val">baronessgardens.com</div>
+      </div>
+      <div class="contact-card" style="cursor:default;">
+        <div class="cc-icon">📍</div>
+        <div class="cc-label">Location</div>
+        <div class="cc-val">East Legon Hills<br>Adenta Municipality</div>
+      </div>
+      <div class="contact-card" style="cursor:default;">
+        <div class="cc-icon">🕐</div>
+        <div class="cc-label">Hours</div>
+        <div class="cc-val">Opens 9 am<br><span style="font-size:11px;opacity:.65;">Closed Mondays</span></div>
+      </div>
+    </div>
+
+    <div class="booking-wrap">
+      <div id="bookingForm">
+        <h3>📅 Request a Reservation</h3>
+        <p class="bsub">We'll confirm your booking within 24 hours.</p>
+        <div class="form-row">
+          <div class="form-group"><label>Your Name *</label><input type="text" id="fname" placeholder="e.g. Kwame Mensah"></div>
+          <div class="form-group"><label>Phone Number *</label><input type="tel" id="fphone" placeholder="e.g. 024 000 0000"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Event Type *</label>
+            <select id="ftype">
+              <option value="" disabled selected>Select event type</option>
+              <option>Wedding Ceremony</option>
+              <option>Wedding Reception</option>
+              <option>Corporate Event</option>
+              <option>Birthday Party</option>
+              <option>Social Gathering</option>
+              <option>Private Dinner</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Preferred Date *</label><input type="date" id="fdate"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Expected Guests</label>
+            <select id="fguests">
+              <option value="" disabled selected>Select guest count</option>
+              <option>Under 50</option><option>50 – 100</option><option>100 – 200</option><option>200 – 300</option><option>300+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Budget Range (GH₵)</label>
+            <select id="fbudget">
+              <option value="" disabled selected>Select budget</option>
+              <option>Under 5,000</option><option>5,000 – 10,000</option><option>10,000 – 20,000</option><option>20,000 – 50,000</option><option>50,000+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Additional Message</label><textarea id="fmsg" placeholder="Special requirements, questions, or anything else…"></textarea></div>
+        <button class="form-submit" onclick="submitForm()">📅 Send Reservation Request</button>
+        <p class="form-note">✅ No commitment required &nbsp;·&nbsp; ✅ Free consultation &nbsp;·&nbsp; ✅ Custom packages available</p>
+        <div class="or-div"><span>or contact us directly</span></div>
+        <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:14px;padding:20px 24px;text-align:center;">
+          <div style="font-size:13px;color:var(--gold-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">📞 Call or WhatsApp</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;letter-spacing:.04em;">059 264 6743</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px;">East Legon Hills, Adenta Municipality · Opens 9 am</div>
+        </div>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="tick">🎉</div>
+        <h4>Request Received!</h4>
+        <p>Thank you! To confirm your booking, call Baroness Gardens directly and they'll sort you out.</p>
+        <div style="background:rgba(255,255,255,0.15);border-radius:14px;padding:20px 28px;display:inline-block;margin-top:8px;">
+          <div style="font-size:13px;color:var(--gold-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Call Us Now</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:.04em;">059 264 6743</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;">East Legon Hills · Opens 9 am</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <div class="brand">Baroness Gardens</div>
+    <div class="sub">— Event Venue —</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;">
+    <p>📍 East Legon Hills, Adenta Municipality</p>
+    <p>📞 059 264 6743</p>
+    <p>🌐 baronessgardens.com</p>
+    <p>🕐 Opens 9 am · Closed Mondays</p>
+  </div>
+  <p style="font-size:12px;opacity:.55;">© 2026 Baroness Gardens. All rights reserved.</p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Set min date to today
+  const d = document.getElementById('fdate');
+  if (d) d.min = new Date().toISOString().split('T')[0];
+
+  function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const type = document.getElementById('ftype').value;
+    const date = document.getElementById('fdate').value;
+    if (!name || !phone || !type || !date) {
+      alert('Please fill in your name, phone number, event type, and preferred date.');
+      return;
+    }
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
